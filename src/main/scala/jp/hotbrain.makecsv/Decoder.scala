@@ -10,6 +10,7 @@ trait DecoderIf {
 }
 
 class Decoder(val exportFileName: String) extends DecoderIf {
+
   def exec(callback: OutputStream => Unit): Unit = {
     val fos = new BufferedOutputStream(new FileOutputStream(exportFileName))
     try {
@@ -18,7 +19,6 @@ class Decoder(val exportFileName: String) extends DecoderIf {
       fos.close()
     }
   }
-
 }
 
 case class DecodeSetting(

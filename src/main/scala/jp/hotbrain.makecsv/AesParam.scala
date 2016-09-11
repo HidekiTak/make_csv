@@ -1,7 +1,7 @@
 package jp.hotbrain.makecsv
 
 import java.nio.charset.StandardCharsets
-import java.security.{CryptoPrimitive, MessageDigest}
+import java.security.MessageDigest
 import javax.crypto._
 import javax.crypto.spec._
 
@@ -15,6 +15,7 @@ case class AesParam(
                    ) {
 
   lazy val key: Array[Byte] = AesParam.getArray(keyStr)
+  
   lazy val iv: Array[Byte] = AesParam.getArray(ivStr)
 
   val longSerial: Long = java.lang.Long.parseLong(serial)
