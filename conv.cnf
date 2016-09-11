@@ -1,0 +1,9 @@
+serial=201609101600
+aes.key=KeyStr
+aes.iv=IVStr
+gzip=true
+charset=UTF-8
+timezone=UTC
+datetime.format=yyyy/MM/dd HH:mm:ss
+db.con=jdbc:mysql://localhost/bspark?user=root&password=root&useSSL=false
+db.sql=SELECT * FROM `groups`
