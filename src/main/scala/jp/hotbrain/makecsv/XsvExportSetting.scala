@@ -140,7 +140,7 @@ object XsvExportSetting {
 
   private[this] def outputStr(os: OutputStream, str: String, conf: XsvExportSetting): Unit = {
     os.write('"')
-    os.write(str.replaceAllLiterally("\"", "\"\"").getBytes(conf.charset))
+    os.write(str.replaceAllLiterally("\"", "\"\"").replaceAllLiterally("\r","\\r").replaceAllLiterally("\n","\\n").replaceAllLiterally("\t","\\t").getBytes(conf.charset))
     os.write('"')
   }
 }
