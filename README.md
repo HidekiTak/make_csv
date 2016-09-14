@@ -1,5 +1,5 @@
 # make_csv
-Export DB View to CSV File with Gzip, AES
+Export DB Table/View to CSV File with Gzip, AES
 
 ## for Use
 Copy JDBC Driver to JAVA_HOME/~ (checked only mysql)
