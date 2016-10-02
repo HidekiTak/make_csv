@@ -44,19 +44,37 @@ case class XsvExportSetting(
   def export(os: OutputStream): Unit = {
     XsvExportSetting.export(os, this)
   }
-
   XsvExportSetting.checkDriver(constr)
 }
 
 
 object XsvExportSetting {
 
-  private[this] final val drivers = Map(
+  private[this] final val  default_drivers = Map(
     "jdbc:mysql://" -> "com.mysql.jdbc.Driver"
   )
 
+  private[this] var drivers = default_drivers
+
   private def checkDriver(constr: String): Unit = {
-    drivers.find(d => constr.startsWith(d._1)).map(x => Class.forName(x._2)).orElse(throw new Exception(s""""$constr" is not supported """))
+
+    drivers = Environment.getValue("db.driver").map {
+      x =>
+        val drv_str = x.split(";", 2)
+        if (2 == drv_str.length) {
+          println(s"""set db driver: "${drv_str(1)}" for "${drv_str(0)}"""")
+          Map(drv_str(0) -> drv_str(1))
+        } else {
+          null
+        }
+    }.getOrElse(default_drivers)
+
+    drivers.find(d => constr.startsWith(d._1)).map(x => Class.forName(x._2)).orElse(throw new Exception(s""""${constr.substring(0, constr.lastIndexOf("://") + 3)}" is not supported. Please add Db Driver setting to configure file, as
+
+  db.driver=jdbc:mysql://;com.mysql.jdbc.Driver
+
+(';' is separator.)
+"""))
   }
 
   private final val _logger = Logger.getLogger(getClass.getName)
