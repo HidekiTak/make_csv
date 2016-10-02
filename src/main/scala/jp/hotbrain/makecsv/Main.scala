@@ -8,7 +8,7 @@ object Main {
     try {
       if (null != args && 0 <= args.length) {
         args(0).toLowerCase() match {
-          case "encode" if 3 == args.length =>
+          case "export" if 3 == args.length =>
             Environment.setConfigFile(args(1))
             encode(args(2))
             println("ok")
@@ -23,7 +23,7 @@ object Main {
       }
       println(
         """Usage:
-          |  java -jar make_csv_assembly_1.0.0.jar encode [encode.cnf] [export_file]
+          |  java -jar make_csv_assembly_1.0.0.jar export [encode.cnf] [export_file]
           |  java -jar make_csv_assembly_1.0.0.jar decode [decode.cnf] [import_file] [export_file]
           |
           |[encode.cnf]
@@ -43,7 +43,7 @@ object Main {
           |db.sql=SELECT * FROM `master`
           |
           |[decode.cnf]
-          |file.serial=201609101600
+          |file.serial=201609101700
           |
           |file.aes.key=[KeyStr]
           |file.aes.iv=[IVStr]
@@ -59,14 +59,6 @@ object Main {
   private[this] def getXsvExportSetting: XsvExportSetting = {
     val constr = Environment.getValue("db.con").getOrElse(throw new Exception("no Sql Connection String"))
     val sqlstr = Environment.getValue("db.sql").getOrElse(throw new Exception("no Select Sql String"))
-
-
-
-    //    optColSep: Option[String] = None,
-    //    optRowSep: Option[String] = None,
-    //    optCharset: Option[String] = None,
-    //    optTimeZone: Option[String] = None,
-    //    optDatetimeFormat: Option[String] = None
     XsvExportSetting(
       constr = constr,
       sqlstr = sqlstr,
@@ -83,7 +75,6 @@ object Main {
     println(s"Encode: to $exportFileName")
     println
     val conf = getXsvExportSetting
-    Environment.allConfigs().foreach(kvp => println(s"${kvp._1}=${kvp._2}"))
     Encoder(
       fileName = exportFileName,
       aesParam = aesParam(),
@@ -94,7 +85,6 @@ object Main {
   private[this] def decode(importFileName: String, exportFileName: String): Unit = {
     println(s"Decode: $importFileName to $exportFileName")
     println
-    Environment.allConfigs().foreach(kvp => println(s"${kvp._1}=${kvp._2}"))
     DecodeSetting(
       importFileName = importFileName,
       aesParam = aesParam(),
