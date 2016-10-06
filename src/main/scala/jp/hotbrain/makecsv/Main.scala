@@ -15,7 +15,12 @@ object Main {
             System.exit(0)
           case "decode" if 4 == args.length =>
             Environment.setConfigFile(args(1))
-            decode(args(2), args(3))
+            decode(args(2), args(3), true)
+            println("ok")
+            System.exit(0)
+          case "decrypt" if 4 == args.length =>
+            Environment.setConfigFile(args(1))
+            decode(args(2), args(3), false)
             println("ok")
             System.exit(0)
           case _ =>
@@ -25,7 +30,8 @@ object Main {
         """Usage:
           |  java -jar make_csv_assembly_1.0.0.jar export [encode.cnf] [export_file]
           |  java -jar make_csv_assembly_1.0.0.jar decode [decode.cnf] [import_file] [export_file]
-          |
+          |  java -jar make_csv_assembly_1.0.0.jar decrypt [decode.cnf] [import_file] [export_file]
+          |          |
           |[encode.cnf]
           |serial=201609101600
           |
@@ -42,7 +48,7 @@ object Main {
           |db.con=jdbc:mysql://localhost/bspark?user=root&password=root&useSSL=false
           |db.sql=SELECT * FROM `master`
           |
-          |[decode.cnf]
+          |[decode.cnf|decrypt.cnf]
           |file.serial=201609101700
           |
           |file.aes.key=[KeyStr]
@@ -82,14 +88,20 @@ object Main {
     ).encodeOf(conf)
   }
 
-  private[this] def decode(importFileName: String, exportFileName: String): Unit = {
+  private[this] def decode(importFileName: String, exportFileName: String, ungzip: Boolean): Unit = {
     println(s"Decode: $importFileName to $exportFileName")
     println
-    DecodeSetting(
-      importFileName = importFileName,
-      aesParam = aesParam(),
-      gzip = Environment.getValue("file.gzip", v => "true".equalsIgnoreCase(v)).getOrElse(false)
-    ).decodeTo(new Decoder(exportFileName))
+    val aes = aesParam()
+    val gzip = ungzip && Environment.getValue("file.gzip", v => "true".equalsIgnoreCase(v)).getOrElse(false)
+    if (aes.isEmpty && !gzip) {
+      println("nothing to do")
+    } else {
+      DecodeSetting(
+        importFileName = importFileName,
+        aesParam = aes,
+        gzip = gzip
+      ).decodeTo(new Decoder(exportFileName))
+    }
   }
 
   private[this] def aesParam(): Option[AesParam] = {
