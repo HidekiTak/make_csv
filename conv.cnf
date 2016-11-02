@@ -1,0 +1,20 @@
+
+serial=201609101600
+
+# aes setting
+file.aes.key=KeyStr
+file.aes.iv=IVStr
+
+# export file setting
+file.gzip=true
+file.col_sep=,
+file.row_sep=\r\n
+file.charset=UTF-8
+#file.charset=Shift-JIS
+file.timezone=UTC
+file.dtformat=yyyy/MM/dd  HH:mm:ss
+
+# db export setting
+# "db.sql", for security, create view as limited user.
+db.con=jdbc:mysql://localhost/bspark?user=root&password=root&useSSL=false
+db.sql=SELECT * FROM `groups`
