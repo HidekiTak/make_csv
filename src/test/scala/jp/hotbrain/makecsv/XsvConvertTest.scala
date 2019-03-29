@@ -2,8 +2,9 @@ package jp.hotbrain.makecsv
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream, OutputStream}
 import java.nio.charset.StandardCharsets
-import org.junit.Test
+
 import org.junit.Assert._
+import org.junit.Test
 
 /**
   * Created by hidek on 2016/09/10.

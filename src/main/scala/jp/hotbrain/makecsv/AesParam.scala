@@ -43,7 +43,7 @@ object AesParam {
   def getArray(str: String): Array[Byte] = {
     str match {
       case regex16(base16) => Base16.toByteArray(base16)
-      case str => MessageDigest.getInstance("MD5").digest(str.getBytes(StandardCharsets.US_ASCII))
+      case `str` => MessageDigest.getInstance("MD5").digest(str.getBytes(StandardCharsets.US_ASCII))
     }
   }
 }

@@ -2,14 +2,15 @@ package jp.hotbrain.makecsv
 
 import org.joda.time.DateTimeZone
 
+
 /**
   * Created by hidek on 2016/09/10.
   */
 object DateTimeZoneDic {
 
-  final val UTC = DateTimeZone.forID("UTC")
+  final val UTC: DateTimeZone = DateTimeZone.forID("UTC")
 
-  final val tz_id_dic = Map[String, String](
+  final val tz_id_dic: Map[String, String] = Map[String, String](
     "JST" -> "Asia/Tokyo")
 
   def getDateTimeZone(str: Option[String]): DateTimeZone = {
