@@ -1,5 +1,6 @@
 
 lazy val root = (project in file("."))
+  .enablePlugins(JavaAppPackaging)
   .settings(
     name := """make_csv""",
     organization := "jp.hotbrain",
