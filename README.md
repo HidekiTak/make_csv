@@ -12,11 +12,13 @@ Copy JDBC Driver to JAVA_HOME/lib/ext/～ | JAVA_HOME/jre/lib/ext/～ (checked o
 
 ## ConvertConfig
 ### Encode/Decode Common Config
-    # for check aes.key,aes.iv. datatype is Long. 
-    serial=201609101600
-    file.aes.key=[KeyStr]
-    file.aes.iv=[IVStr]
-    file.gzip=true
+```
+# for check aes.key,aes.iv. datatype is Long. 
+serial=201609101600
+file.aes.key=[KeyStr]
+file.aes.iv=[IVStr]
+file.gzip=true
+```
 
 ### Encode Config
     # export file charset

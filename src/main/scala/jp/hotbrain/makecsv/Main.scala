@@ -15,12 +15,12 @@ object Main {
             System.exit(0)
           case "decode" if 4 == args.length =>
             Environment.setConfigFile(args(1))
-            decode(args(2), args(3), true)
+            decode(args(2), args(3), ungzip = true)
             println("ok")
             System.exit(0)
           case "decrypt" if 4 == args.length =>
             Environment.setConfigFile(args(1))
-            decode(args(2), args(3), false)
+            decode(args(2), args(3), ungzip = false)
             println("ok")
             System.exit(0)
           case _ =>
@@ -105,8 +105,8 @@ object Main {
   }
 
   private[this] def aesParam(): Option[AesParam] = {
-    val key = Environment.getValue("file.aes.key").getOrElse("")
-    val iv = Environment.getValue("file.aes.iv").getOrElse("")
+    val key = Environment.getValue("file.aes.key").map(_.trim).getOrElse("")
+    val iv = Environment.getValue("file.aes.iv").map(_.trim).getOrElse("")
     if (key.isEmpty || iv.isEmpty) {
       None
     } else {

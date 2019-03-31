@@ -2,8 +2,9 @@
 serial=201609101600
 
 # aes setting
-file.aes.key=KeyStr
-file.aes.iv=IVStr
+file.aes.key=phrase for md5-hash
+#   direct hex(32 char)
+file.aes.iv=0123456789abcdef0123456789abcdef
 
 # export file setting
 file.gzip=true
