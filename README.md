@@ -8,7 +8,7 @@ Copy JDBC Driver to JAVA_HOME/lib/ext/～ | JAVA_HOME/jre/lib/ext/～ (checked o
     $ java -jar make_csv-assembly-1.0.0.jar decode [decode.cnf] [import_file] [export_file]
 
 ### compile
-    $ bin/activator assembly
+    $ ./sbt.sh
 
 ## ConvertConfig
 ### Encode/Decode Common Config
@@ -21,7 +21,7 @@ Copy JDBC Driver to JAVA_HOME/lib/ext/～ | JAVA_HOME/jre/lib/ext/～ (checked o
 ### Encode Config
     # export file charset
     file.charset=UTF-8
-    # DateTimeFormat's TimeZone "JST","Asia/Tokyo","+09:00"
+    # DateTimeFormat's TimeZone for sql.TimeStamp Column ("JST","Asia/Tokyo","+09:00")
     file.timezone=UTC
     # Format for sql.TimeStamp Column
     file.dtformat=yyyy/MM/dd HH:mm:ss
